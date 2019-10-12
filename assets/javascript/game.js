@@ -3,7 +3,8 @@ var alphabet =["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
 var wins = 0;
 var losses = 0;
 var guessLeft = 10;
-var guess = []
+var guess = [];
+//var computerGuess = [Math.floor(Math.random() * alphabet.length)];
 
 // Create variables that hold references to the places in the HTML where we want to display things.
 var directionsText = document.getElementById("direction-text");
@@ -13,18 +14,21 @@ var guessLeftText = document.getElementById("guessLeft-text");
 var guessText = document.getElementById("guess-text");
 
 // This function is run whenever the user presses a key.
-    document.onkeyup = function(event) {                
+        document.onkeydown = function(event) {
         var userGuess = event.key.toLowerCase();
         guess.push(userGuess);
         var computerGuess = [Math.floor(Math.random() * alphabet.length)];
  
-            if (computerGuess === userGuess) {
-                wins += 1;
-                guessLeft = 10;
-            } else if (guessLeft < 10) {
-                losses += 1;
-                guessLeft -= 1;
-            }
+        if (computerGuess === userGuess) {
+            wins ++;
+        } else if (guessLeft === 0) {
+            guessLeft = 10;
+            var computerGuess = [Math.floor(Math.random() * alphabet.length)];
+        }
+        else {
+            losses ++;
+            guessLeft --;
+        }
            
         console.log(userGuess);
         console.log(alphabet [computerGuess]);
